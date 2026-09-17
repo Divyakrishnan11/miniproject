@@ -1,0 +1,217 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DayTone AI - Mood Check</title>
+
+    <link rel="stylesheet" href="{% static 'core/style.css' %}">
+
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+
+            background:
+                radial-gradient(circle at 80% 20%, #173b5c, transparent 35%),
+                radial-gradient(circle at 20% 80%, #102d46, transparent 35%),
+                #071522;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .mood-card {
+            width: 420px;
+            max-width: 100%;
+            background: #ffffff;
+            padding: 40px 35px;
+            border-radius: 22px;
+            box-sizing: border-box;
+
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+            text-align: center;
+        }
+
+        .brand {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+
+            font-size: 27px;
+            font-weight: bold;
+            color: #12324a;
+
+            margin-bottom: 25px;
+        }
+
+        .brand-emoji {
+            font-size: 29px;
+        }
+
+        .mood-card h2 {
+            margin: 0;
+            font-size: 25px;
+            color: #172b3a;
+        }
+
+        .subtitle {
+            margin-top: 10px;
+            margin-bottom: 28px;
+
+            font-size: 15px;
+            color: #71808c;
+        }
+
+        .mood-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 13px;
+        }
+
+        .mood-container button {
+            border: 1px solid #dce7ee;
+            background: #f7fbfd;
+
+            padding: 14px 10px;
+            border-radius: 13px;
+
+            font-size: 15px;
+            font-weight: 600;
+            color: #29475b;
+
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .mood-container button:hover {
+            background: #eaf7ff;
+            border-color: #9ed5f3;
+            transform: translateY(-2px);
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+
+            margin-top: 28px;
+            padding-top: 20px;
+
+            border-top: 1px solid #edf1f3;
+        }
+
+        .navigation a {
+            text-decoration: none;
+            color: #416b86;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .navigation a:hover {
+            color: #173b5c;
+        }
+
+        @media (max-width: 450px) {
+            .mood-card {
+                padding: 32px 22px;
+            }
+
+            .brand {
+                font-size: 24px;
+            }
+
+            .mood-card h2 {
+                font-size: 22px;
+            }
+
+            .mood-container {
+                gap: 10px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="mood-card">
+
+        <div class="brand">
+            <span class="brand-emoji">🌤️</span>
+            <span>DayTone AI</span>
+        </div>
+
+        <h2>How are you feeling today?</h2>
+
+        <p class="subtitle">
+            Select your current mood
+        </p>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="mood-container">
+
+                <button type="submit" name="mood" value="Happy">
+                    😊 Happy
+                </button>
+
+                <button type="submit" name="mood" value="Sad">
+                    😢 Sad
+                </button>
+
+                <button type="submit" name="mood" value="Angry">
+                    😡 Angry
+                </button>
+
+                <button type="submit" name="mood" value="Anxious">
+                    😰 Anxious
+                </button>
+
+                <button type="submit" name="mood" value="Tired">
+                    😴 Tired
+                </button>
+
+                <button type="submit" name="mood" value="Calm">
+                    😌 Calm
+                </button>
+
+                <button type="submit" name="mood" value="Loved">
+                    🥰 Loved
+                </button>
+
+                <button type="submit" name="mood" value="Neutral">
+                    😐 Neutral
+                </button>
+
+            </div>
+
+        </form>
+
+        <div class="navigation">
+
+            <a href="{% url 'profile' %}">
+                👤 Profile
+            </a>
+
+            <a href="{% url 'logout' %}">
+                🚪 Logout
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

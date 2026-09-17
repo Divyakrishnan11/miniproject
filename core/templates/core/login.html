@@ -1,0 +1,417 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login - DayTone AI</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-family: Arial, sans-serif;
+
+            background:
+                radial-gradient(circle at 80% 20%, #173b5c, transparent 35%),
+                radial-gradient(circle at 20% 80%, #102d46, transparent 35%),
+                #071522;
+        }
+
+        .login-card {
+            width: 360px;
+
+            background: white;
+
+            padding: 32px 30px;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 15px 40px rgba(0, 0, 0, 0.35);
+
+            text-align: left;
+        }
+
+        .brand {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 10px;
+
+            margin-bottom: 20px;
+        }
+
+        .brand-emoji {
+            font-size: 30px;
+        }
+
+        .brand-name {
+            margin: 0;
+
+            font-size: 30px;
+
+            color: #168aad;
+
+            font-weight: 700;
+        }
+
+        .login-title {
+            text-align: center;
+
+            margin: 0 0 25px;
+
+            color: #222;
+
+            font-size: 25px;
+        }
+
+        .error {
+            background: #ffecec;
+
+            color: #c62828;
+
+            border: 1px solid #ffcaca;
+
+            padding: 10px;
+
+            border-radius: 7px;
+
+            margin-bottom: 15px;
+
+            font-size: 13px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+
+            margin-bottom: 7px;
+
+            font-weight: bold;
+
+            color: #333;
+
+            font-size: 14px;
+        }
+
+        .password-wrapper {
+            position: relative;
+        }
+
+        .form-group input {
+            width: 100%;
+
+            height: 43px;
+
+            padding: 10px 12px;
+
+            border: 1px solid #bdbdbd;
+
+            border-radius: 5px;
+
+            outline: none;
+
+            font-size: 15px;
+
+            color: #222;
+
+            background: white;
+        }
+
+        .password-wrapper input {
+            padding-right: 45px;
+        }
+
+        .form-group input:focus {
+            border-color: #168aad;
+
+            box-shadow: 0 0 4px rgba(22, 138, 173, 0.25);
+        }
+
+        .show-password {
+            position: absolute;
+
+            right: 10px;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            width: 32px;
+
+            height: 32px;
+
+            border: none;
+
+            background: transparent;
+
+            cursor: pointer;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 17px;
+
+            opacity: 0.65;
+        }
+
+        .show-password:hover {
+            opacity: 1;
+        }
+
+        .login-button {
+            width: 100%;
+
+            height: 43px;
+
+            border: none;
+
+            border-radius: 5px;
+
+            background: #168aad;
+
+            color: white;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            margin-top: 5px;
+        }
+
+        .login-button:hover {
+            background: #0f7290;
+        }
+
+        .register {
+            text-align: center;
+
+            margin-top: 20px;
+
+            font-size: 14px;
+
+            color: #555;
+        }
+
+        .register a {
+            color: #168aad;
+
+            font-weight: bold;
+
+            text-decoration: none;
+        }
+
+        .register a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 500px) {
+
+            .login-card {
+                width: calc(100% - 30px);
+
+                padding: 28px 22px;
+            }
+
+            .brand-name {
+                font-size: 27px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="login-card">
+
+
+        <!-- DayTone AI + Emoji -->
+
+        <div class="brand">
+
+            <span class="brand-emoji">🌤️</span>
+
+            <h1 class="brand-name">
+                DayTone AI
+            </h1>
+
+        </div>
+
+
+        <h2 class="login-title">
+            Login
+        </h2>
+
+
+        <!-- Login Error Only -->
+
+        {% if error %}
+
+        <div class="error">
+            ⚠️ {{ error }}
+        </div>
+
+        {% endif %}
+
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            <!-- Username -->
+
+            <div class="form-group">
+
+                <label for="username">
+                    Username
+                </label>
+
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    placeholder="Enter your username"
+                    autocomplete="username"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Password -->
+
+            <div class="form-group">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <div class="password-wrapper">
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        autocomplete="current-password"
+                        required
+                    >
+
+                    <button
+                        type="button"
+                        class="show-password"
+                        onclick="togglePassword()"
+                        aria-label="Show password"
+                    >
+                        👁️
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- Login -->
+
+            <button
+                type="submit"
+                class="login-button"
+            >
+                Login
+            </button>
+
+
+        </form>
+
+
+        <!-- Register -->
+
+        <div class="register">
+
+            Don't have an account?
+
+            <a href="{% url 'register' %}">
+                Register
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+    <script>
+
+        function togglePassword() {
+
+            const password =
+                document.getElementById("password");
+
+            const button =
+                document.querySelector(".show-password");
+
+
+            if (password.type === "password") {
+
+                password.type = "text";
+
+                button.textContent = "🙈";
+
+                button.setAttribute(
+                    "aria-label",
+                    "Hide password"
+                );
+
+            } else {
+
+                password.type = "password";
+
+                button.textContent = "👁️";
+
+                button.setAttribute(
+                    "aria-label",
+                    "Show password"
+                );
+
+            }
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>

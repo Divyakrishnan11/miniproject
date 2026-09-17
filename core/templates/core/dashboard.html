@@ -1,0 +1,140 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard - DayTone AI</title>
+
+    <link rel="stylesheet" href="{% static 'core/style.css' %}">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>🌤️ DayTone AI</h1>
+
+        <h2>Welcome, {{ user.username }} ❤️</h2>
+
+        <hr>
+
+        <h2>📊 My Dashboard</h2>
+
+        {% if moods %}
+
+            <div class="dashboard-summary">
+
+                <h3>🌈 Your Mood Entries</h3>
+
+                <p>
+                    You have recorded
+                    <strong>{{ moods|length }}</strong>
+                    mood entr{{ moods|length|pluralize:"y,ies" }}.
+                </p>
+
+            </div>
+
+            {% for mood in moods %}
+
+                <div class="mood-card">
+
+                    <h3>
+                        {% if mood.mood == "Happy" %}
+                            😊 Happy
+                        {% elif mood.mood == "Sad" %}
+                            😢 Sad
+                        {% elif mood.mood == "Angry" %}
+                            😡 Angry
+                        {% elif mood.mood == "Anxious" %}
+                            😰 Anxious
+                        {% elif mood.mood == "Tired" %}
+                            😴 Tired
+                        {% elif mood.mood == "Calm" %}
+                            😌 Calm
+                        {% elif mood.mood == "Loved" %}
+                            ❤️ Loved
+                        {% else %}
+                            😐 Neutral
+                        {% endif %}
+                    </h3>
+
+<p>
+    <strong>📝 Journal:</strong><br>
+    {{ mood.journal }}
+</p>
+
+<p>
+    <strong>🧠 Sentiment:</strong>
+    {{ mood.sentiment }}
+</p>
+
+<p>
+    <strong>⚡ Stress Level:</strong>
+    {{ mood.stress_level }}
+</p>
+
+<p class="mood-date">
+    🕒 {{ mood.created_at|date:"d M Y, h:i A" }}
+</p>                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="info">
+
+                <h3>🌱 No Mood Entries Yet</h3>
+
+                <p>
+                    Start tracking your mood to see your wellness journey here.
+                </p>
+
+                <a href="{% url 'home' %}">
+                    😊 Start Mood Tracking
+                </a>
+
+            </div>
+
+        {% endif %}
+
+        <hr>
+
+        <h3>✨ Explore DayTone AI</h3>
+
+        <div class="dashboard-links">
+
+            <a href="{% url 'mood_history' %}">
+                📈 Mood History
+            </a>
+
+            <a href="{% url 'wellness_analysis' %}">
+                🧠 AI Wellness Analysis
+            </a>
+
+            <a href="{% url 'wellness_activities' %}">
+                🌿 Wellness Activities
+            </a>
+
+            <a href="{% url 'home' %}">
+                😊 Mood Tracker
+            </a>
+
+            <a href="{% url 'profile' %}">
+                👤 Profile
+            </a>
+
+            <a href="{% url 'logout' %}">
+                🚪 Logout
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

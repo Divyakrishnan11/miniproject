@@ -1,0 +1,625 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Account - DayTone AI</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-family: Arial, sans-serif;
+
+            background:
+                radial-gradient(circle at 80% 20%, #173b5c, transparent 35%),
+                radial-gradient(circle at 20% 80%, #102d46, transparent 35%),
+                #071522;
+        }
+
+        .register-card {
+            width: 390px;
+            max-width: calc(100% - 30px);
+
+            background: white;
+
+            padding: 32px 34px;
+
+            border-radius: 12px;
+
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
+
+            text-align: left;
+        }
+
+        .brand {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            gap: 9px;
+
+            margin-bottom: 8px;
+        }
+
+        .brand-emoji {
+            font-size: 30px;
+        }
+
+        .brand-name {
+            margin: 0;
+
+            color: #168aad;
+
+            font-size: 29px;
+
+            font-weight: 700;
+        }
+
+        .title {
+            text-align: center;
+
+            margin: 0 0 25px;
+
+            color: #222;
+
+            font-size: 24px;
+        }
+
+        .error {
+            background: #ffecec;
+
+            color: #c62828;
+
+            border: 1px solid #ffcaca;
+
+            padding: 10px;
+
+            border-radius: 7px;
+
+            margin-bottom: 16px;
+
+            font-size: 13px;
+        }
+
+        .form-group {
+            margin-bottom: 17px;
+        }
+
+        .form-group label {
+            display: block;
+
+            margin-bottom: 7px;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            color: #333;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .form-group input {
+            width: 100%;
+
+            height: 43px;
+
+            padding: 10px 45px 10px 12px;
+
+            border: 1px solid #bdbdbd;
+
+            border-radius: 5px;
+
+            outline: none;
+
+            font-size: 15px;
+
+            color: #222;
+
+            background: white;
+        }
+
+        .form-group input:focus {
+            border-color: #168aad;
+
+            box-shadow: 0 0 4px rgba(22, 138, 173, 0.25);
+        }
+
+        .show-password {
+            position: absolute;
+
+            right: 8px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            width: 32px;
+            height: 32px;
+
+            border: none;
+
+            background: transparent;
+
+            cursor: pointer;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 17px;
+
+            opacity: 0.65;
+
+            padding: 0;
+        }
+
+        .show-password:hover {
+            opacity: 1;
+        }
+
+        .password-rules {
+            margin-top: 10px;
+
+            padding: 11px 13px;
+
+            background: #f5f9fb;
+
+            border-radius: 7px;
+
+            font-size: 12px;
+
+            color: #777;
+
+            line-height: 1.8;
+        }
+
+        .password-rules p {
+            margin: 2px 0;
+        }
+
+        .invalid {
+            color: #777;
+        }
+
+        .valid {
+            color: #168a4a;
+        }
+
+        .create-button {
+            width: 100%;
+
+            height: 43px;
+
+            border: none;
+
+            border-radius: 5px;
+
+            background: #168aad;
+
+            color: white;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            margin-top: 5px;
+        }
+
+        .create-button:hover {
+            background: #0f7290;
+        }
+
+        .login-link {
+            text-align: center;
+
+            margin-top: 20px;
+
+            color: #555;
+
+            font-size: 14px;
+        }
+
+        .login-link a {
+            color: #168aad;
+
+            font-weight: bold;
+
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 500px) {
+
+            .register-card {
+                padding: 28px 22px;
+            }
+
+            .brand-name {
+                font-size: 26px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="register-card">
+
+
+    <!-- BRAND -->
+
+    <div class="brand">
+
+        <span class="brand-emoji">🌤️</span>
+
+        <h1 class="brand-name">
+            DayTone AI
+        </h1>
+
+    </div>
+
+
+    <!-- TITLE -->
+
+    <h2 class="title">
+        Create Account
+    </h2>
+
+
+    <!-- DJANGO ERROR -->
+
+    {% if error %}
+
+    <div class="error">
+        ⚠️ {{ error }}
+    </div>
+
+    {% endif %}
+
+
+    <form method="POST" id="registerForm">
+
+        {% csrf_token %}
+
+
+        <!-- USERNAME -->
+
+        <div class="form-group">
+
+            <label for="username">
+                Username
+            </label>
+
+            <input
+                type="text"
+                id="username"
+                name="username"
+                placeholder="Choose a username"
+                autocomplete="username"
+                required
+            >
+
+        </div>
+
+
+        <!-- PASSWORD -->
+
+        <div class="form-group">
+
+            <label for="password">
+                Password
+            </label>
+
+            <div class="input-wrapper">
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Create a strong password"
+                    autocomplete="new-password"
+                    required
+                >
+
+                <button
+                    type="button"
+                    class="show-password"
+                    onclick="togglePassword('password', this)"
+                    aria-label="Show password"
+                >
+                    👁️
+                </button>
+
+            </div>
+
+
+            <!-- PASSWORD RULES -->
+
+            <div class="password-rules">
+
+                <p id="length" class="invalid">
+                    ✕ At least 8 characters
+                </p>
+
+                <p id="uppercase" class="invalid">
+                    ✕ One uppercase letter (A-Z)
+                </p>
+
+                <p id="lowercase" class="invalid">
+                    ✕ One lowercase letter (a-z)
+                </p>
+
+                <p id="number" class="invalid">
+                    ✕ One number (0-9)
+                </p>
+
+                <p id="special" class="invalid">
+                    ✕ One special character (@ # $ % !)
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- CONFIRM PASSWORD -->
+
+        <div class="form-group">
+
+            <label for="confirmPassword">
+                Confirm Password
+            </label>
+
+            <div class="input-wrapper">
+
+                <input
+                    type="password"
+                    id="confirmPassword"
+                    name="confirm_password"
+                    placeholder="Re-enter your password"
+                    autocomplete="new-password"
+                    required
+                >
+
+                <button
+                    type="button"
+                    class="show-password"
+                    onclick="togglePassword('confirmPassword', this)"
+                    aria-label="Show password"
+                >
+                    👁️
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- CREATE ACCOUNT -->
+
+        <button
+            type="submit"
+            class="create-button"
+        >
+            Create Account
+        </button>
+
+
+    </form>
+
+
+    <!-- LOGIN LINK -->
+
+    <div class="login-link">
+
+        Already have an account?
+
+        <a href="{% url 'login' %}">
+            Login
+        </a>
+
+    </div>
+
+
+</div>
+
+
+<script>
+
+
+/* =========================
+   SHOW / HIDE PASSWORD
+   ========================= */
+
+function togglePassword(id, button) {
+
+    const input = document.getElementById(id);
+
+    if (input.type === "password") {
+
+        input.type = "text";
+
+        button.textContent = "🙈";
+
+        button.setAttribute(
+            "aria-label",
+            "Hide password"
+        );
+
+    } else {
+
+        input.type = "password";
+
+        button.textContent = "👁️";
+
+        button.setAttribute(
+            "aria-label",
+            "Show password"
+        );
+
+    }
+
+}
+
+
+/* =========================
+   PASSWORD VALIDATION
+   ========================= */
+
+const password = document.getElementById("password");
+
+
+password.addEventListener("input", function () {
+
+    const value = password.value;
+
+    updateRule(
+        "length",
+        value.length >= 8
+    );
+
+    updateRule(
+        "uppercase",
+        /[A-Z]/.test(value)
+    );
+
+    updateRule(
+        "lowercase",
+        /[a-z]/.test(value)
+    );
+
+    updateRule(
+        "number",
+        /[0-9]/.test(value)
+    );
+
+    updateRule(
+        "special",
+        /[^A-Za-z0-9]/.test(value)
+    );
+
+});
+
+
+function updateRule(id, condition) {
+
+    const element = document.getElementById(id);
+
+    const text = element.textContent.substring(2);
+
+    if (condition) {
+
+        element.className = "valid";
+
+        element.textContent = "✓ " + text;
+
+    } else {
+
+        element.className = "invalid";
+
+        element.textContent = "✕ " + text;
+
+    }
+
+}
+
+
+/* =========================
+   FORM VALIDATION
+   ========================= */
+
+const form = document.getElementById("registerForm");
+
+
+form.addEventListener("submit", function (event) {
+
+    const value = password.value;
+
+    const confirmPassword =
+        document.getElementById("confirmPassword");
+
+
+    const validPassword =
+
+        value.length >= 8 &&
+
+        /[A-Z]/.test(value) &&
+
+        /[a-z]/.test(value) &&
+
+        /[0-9]/.test(value) &&
+
+        /[^A-Za-z0-9]/.test(value);
+
+
+    /* Password requirements */
+
+    if (!validPassword) {
+
+        event.preventDefault();
+
+        alert(
+            "Please meet all password requirements."
+        );
+
+        password.focus();
+
+        return;
+
+    }
+
+
+    /* Password match */
+
+    if (password.value !== confirmPassword.value) {
+
+        event.preventDefault();
+
+        alert(
+            "Passwords do not match."
+        );
+
+        confirmPassword.focus();
+
+        return;
+
+    }
+
+});
+
+
+</script>
+
+
+</body>
+
+</html>

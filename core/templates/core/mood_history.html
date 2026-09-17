@@ -1,0 +1,134 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+```
+<title>Mood History - DayTone AI</title>
+
+<link rel="stylesheet" href="{% static 'core/style.css' %}">
+```
+
+</head>
+
+<body>
+
+```
+<div class="container">
+
+    <h1>🌤️ DayTone AI</h1>
+
+    <h2>📊 My Mood History</h2>
+
+    <p>Welcome, {{ user.username }} ❤️</p>
+
+    <hr>
+
+    {% if moods %}
+
+        {% for mood in moods %}
+
+            <div class="mood-card">
+
+                <h3>
+                    {% if mood.mood == "Happy" %}
+                        😊 Happy
+                    {% elif mood.mood == "Sad" %}
+                        😢 Sad
+                    {% elif mood.mood == "Angry" %}
+                        😡 Angry
+                    {% elif mood.mood == "Anxious" %}
+                        😰 Anxious
+                    {% elif mood.mood == "Tired" %}
+                        😴 Tired
+                    {% elif mood.mood == "Calm" %}
+                        😌 Calm
+                    {% elif mood.mood == "Loved" %}
+                        ❤️ Loved
+                    {% else %}
+                        😐 Neutral
+                    {% endif %}
+                </h3>
+
+                <p>
+                    <strong>📝 Journal:</strong><br>
+                    {{ mood.journal }}
+                </p>
+
+                <p>
+                    <strong>🧠 Sentiment:</strong>
+                    {{ mood.sentiment }}
+                </p>
+
+                <p>
+                    <strong>⚡ Stress Level:</strong>
+                    {{ mood.stress_level }}
+                </p>
+
+                <p class="mood-date">
+                    🕒 {{ mood.created_at|date:"d M Y, h:i A" }}
+                </p>
+
+            </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <div class="info">
+
+            <h3>🌱 No Mood History Yet</h3>
+
+            <p>
+                Start tracking your mood to see your history here.
+            </p>
+
+            <a href="{% url 'home' %}">
+                😊 Start Mood Tracking
+            </a>
+
+        </div>
+
+    {% endif %}
+
+    <hr>
+
+    <div class="navigation">
+
+        <a href="{% url 'dashboard' %}">
+            📊 Dashboard
+        </a>
+
+        <a href="{% url 'wellness_analysis' %}">
+            🧠 AI Wellness Analysis
+        </a>
+
+        <a href="{% url 'wellness_activities' %}">
+            🌿 Wellness Activities
+        </a>
+
+        <a href="{% url 'home' %}">
+            😊 Mood Tracker
+        </a>
+
+        <a href="{% url 'profile' %}">
+            👤 Profile
+        </a>
+
+        <a href="{% url 'logout' %}">
+            🚪 Logout
+        </a>
+
+    </div>
+
+</div>
+```
+
+</body>
+
+</html>

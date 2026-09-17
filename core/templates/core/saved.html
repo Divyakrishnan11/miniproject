@@ -1,0 +1,338 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mood Saved - DayTone AI</title>
+
+    <link rel="stylesheet" href="{% static 'core/style.css' %}">
+
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+
+            background:
+                radial-gradient(circle at 80% 20%, #173b5c, transparent 35%),
+                radial-gradient(circle at 20% 80%, #102d46, transparent 35%),
+                #071522;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .success-card {
+            width: 700px;
+            max-width: 100%;
+            background: #ffffff;
+
+            padding: 40px;
+            border-radius: 22px;
+            box-sizing: border-box;
+
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+
+            text-align: center;
+        }
+
+        .brand {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+
+            font-size: 28px;
+            font-weight: bold;
+            color: #12324a;
+
+            margin-bottom: 25px;
+        }
+
+        .brand-emoji {
+            font-size: 30px;
+        }
+
+        .success-title {
+            margin: 0;
+            font-size: 25px;
+            color: #173b5c;
+        }
+
+        .saved-message {
+            margin-top: 10px;
+            color: #71808c;
+            font-size: 15px;
+        }
+
+        .section {
+            border-top: 1px solid #e5edf2;
+            margin-top: 25px;
+            padding-top: 25px;
+        }
+
+        .section h3 {
+            margin-top: 0;
+            margin-bottom: 20px;
+
+            color: #173b5c;
+            font-size: 21px;
+        }
+
+        .saved-mood {
+            display: inline-block;
+
+            padding: 14px 35px;
+
+            border: 1px solid #9edfff;
+            border-radius: 15px;
+
+            background: #eefaff;
+
+            color: #28566e;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .analysis-box {
+            background: #f7fbfd;
+            border: 1px solid #e0edf3;
+
+            border-radius: 15px;
+
+            padding: 18px;
+        }
+
+        .analysis-box p {
+            margin: 10px 0;
+
+            color: #516b7a;
+            font-size: 16px;
+        }
+
+        .analysis-box strong {
+            color: #29475b;
+        }
+
+        .insight-box {
+            background: #f7fbfd;
+
+            border-left: 4px solid #9edfff;
+
+            border-radius: 12px;
+
+            padding: 16px 20px;
+
+            color: #516b7a;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .navigation {
+            border-top: 1px solid #e5edf2;
+
+            margin-top: 28px;
+            padding-top: 22px;
+
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px 25px;
+        }
+
+        .navigation a {
+            text-decoration: none;
+
+            color: #416b86;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            transition: 0.2s ease;
+        }
+
+        .navigation a:hover {
+            color: #173b5c;
+        }
+
+        @media (max-width: 600px) {
+
+            .success-card {
+                padding: 30px 20px;
+            }
+
+            .brand {
+                font-size: 24px;
+            }
+
+            .success-title {
+                font-size: 22px;
+            }
+
+            .navigation {
+                gap: 15px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="success-card">
+
+        <!-- Brand -->
+        <div class="brand">
+            <span class="brand-emoji">🌤️</span>
+            <span>DayTone AI</span>
+        </div>
+
+
+        <!-- Success Message -->
+        <h2 class="success-title">
+            ✓ Mood Saved Successfully!
+        </h2>
+
+        <p class="saved-message">
+            Your mood and journal entry have been saved.
+        </p>
+
+
+        <!-- Mood -->
+        <div class="section">
+
+            <h3>Your Mood</h3>
+
+            <div class="saved-mood">
+
+                {% if mood == "Happy" %}
+                    Happy 😊
+
+                {% elif mood == "Sad" %}
+                    Sad 😢
+
+                {% elif mood == "Angry" %}
+                    Angry 😡
+
+                {% elif mood == "Anxious" %}
+                    Anxious 😰
+
+                {% elif mood == "Tired" %}
+                    Tired 😴
+
+                {% elif mood == "Calm" %}
+                    Calm 😌
+
+                {% elif mood == "Loved" %}
+                    Loved ❤️
+
+                {% elif mood == "Neutral" %}
+                    Neutral 😐
+
+                {% else %}
+                    {{ mood }}
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <!-- AI Analysis -->
+        <div class="section">
+
+            <h3>🧠 AI Wellness Analysis</h3>
+
+            <div class="analysis-box">
+
+                <p>
+                    <strong>Sentiment:</strong>
+                    {{ sentiment }}
+                </p>
+
+                <p>
+                    <strong>Stress Level:</strong>
+                    {{ stress }}
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- Wellness Insight -->
+        <div class="section">
+
+            <h3>💡 Wellness Insight</h3>
+
+            <div class="insight-box">
+
+                {% if sentiment == "Positive" %}
+
+                    😊 Your journal shows a positive emotional tone.
+                    Keep doing activities that make you feel happy and relaxed.
+
+                {% elif sentiment == "Negative" %}
+
+                    💙 Your journal shows some negative emotions.
+                    Take a short break, practice deep breathing,
+                    and consider talking to someone you trust.
+
+                {% else %}
+
+                    😌 Your journal shows a neutral emotional tone.
+                    Take some time to check in with yourself today.
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <!-- Navigation -->
+        <div class="navigation">
+
+            <a href="{% url 'dashboard' %}">
+                📊 Dashboard
+            </a>
+
+            <a href="{% url 'mood_history' %}">
+                📈 Mood History
+            </a>
+
+            <a href="{% url 'wellness_analysis' %}">
+                🧠 AI Wellness Analysis
+            </a>
+
+            <a href="{% url 'wellness_activities' %}">
+                🌿 Wellness Activities
+            </a>
+
+            <a href="{% url 'home' %}">
+                😊 Mood Tracker
+            </a>
+
+            <a href="{% url 'profile' %}">
+                👤 Profile
+            </a>
+
+            <a href="{% url 'logout' %}">
+                🚪 Logout
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,147 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Wellness Analysis - DayTone AI</title>
+
+    <link rel="stylesheet" href="{% static 'core/style.css' %}">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>🌤️ DayTone AI</h1>
+
+        <h2>🧠 AI Wellness Analysis</h2>
+
+        <p>Welcome, {{ user.username }} ❤️</p>
+
+        <hr>
+
+        {% if moods %}
+
+            {% with latest=moods.0 %}
+
+                <div class="analysis-card">
+
+                    <h3>🌈 Your Recent Mood</h3>
+
+                    <div class="recent-mood">
+
+                        {% if latest.mood == "Happy" %}
+                            😊 Happy
+                        {% elif latest.mood == "Sad" %}
+                            😢 Sad
+                        {% elif latest.mood == "Angry" %}
+                            😡 Angry
+                        {% elif latest.mood == "Anxious" %}
+                            😰 Anxious
+                        {% elif latest.mood == "Tired" %}
+                            😴 Tired
+                        {% elif latest.mood == "Calm" %}
+                            😌 Calm
+                        {% elif latest.mood == "Loved" %}
+                            ❤️ Loved
+                        {% else %}
+                            😐 Neutral
+                        {% endif %}
+
+                    </div>
+
+                    <h3>📝 Your Journal</h3>
+
+                    <p class="journal-text">
+                        {{ latest.journal }}
+                    </p>
+
+                </div>
+
+                <div class="analysis-card">
+
+                    <h3>💡 Wellness Insight</h3>
+
+                    {% if latest.mood == "Happy" %}
+                        <p>😊 You seem to be feeling positive today. Keep doing things that make you happy!</p>
+
+                    {% elif latest.mood == "Sad" %}
+                        <p>😢 You may be going through a difficult moment. Take some time to relax and talk to someone you trust.</p>
+
+                    {% elif latest.mood == "Angry" %}
+                        <p>😡 You may be experiencing frustration. Try deep breathing or taking a short break.</p>
+
+                    {% elif latest.mood == "Anxious" %}
+                        <p>😰 You may be experiencing anxiety. Try slow breathing and spend some time in a calm environment.</p>
+
+                    {% elif latest.mood == "Tired" %}
+                        <p>😴 Your mood suggests that you may need some rest. Give yourself time to relax.</p>
+
+                    {% elif latest.mood == "Calm" %}
+                        <p>😌 You seem calm and relaxed. Keep maintaining this positive state.</p>
+
+                    {% elif latest.mood == "Loved" %}
+                        <p>❤️ You seem to be feeling loved and connected. Cherish those positive relationships.</p>
+
+                    {% else %}
+                        <p>😐 Your mood seems neutral. Take a moment to check in with yourself today.</p>
+                    {% endif %}
+
+                </div>
+
+                <div class="analysis-card">
+
+                    <h3>🌿 Suggested Self-Care</h3>
+
+<div class="self-care-list">
+
+    <p>• 🌬️ Take a few deep breaths.</p>
+
+    <p>• 💧 Drink enough water.</p>
+
+    <p>• 📱 Take a short break from screens.</p>
+
+    <p>• 🎵 Do something you enjoy.</p>
+
+</div>
+                </div>
+
+            {% endwith %}
+
+        {% else %}
+
+            <div class="info">
+
+                <h3>📊 No Mood Data</h3>
+
+                <p>No mood data is available for analysis yet.</p>
+
+                <p>Please record a mood first.</p>
+
+            </div>
+
+        {% endif %}
+
+        <div class="navigation">
+
+            <a href="{% url 'dashboard' %}">📊 Dashboard</a>
+
+            <a href="{% url 'mood_history' %}">📈 Mood History</a>
+
+            <a href="{% url 'home' %}">😊 Mood Tracker</a>
+
+            <a href="{% url 'profile' %}">👤 Profile</a>
+
+            <a href="{% url 'logout' %}">🚪 Logout</a>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

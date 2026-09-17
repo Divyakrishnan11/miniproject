@@ -1,0 +1,65 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Wellness Activities - DayTone AI</title>
+
+    <link rel="stylesheet" href="{% static 'core/style.css' %}">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>🌤️ DayTone AI</h1>
+
+        <h2>🌿 Wellness Activities</h2>
+
+        <p>Welcome, {{ user.username }} ❤️</p>
+
+        <hr>
+
+        <h3>Choose an activity for your well-being:</h3>
+
+        <div class="activity-list">
+
+            {% for activity in activities %}
+
+                <div class="activity-card">
+                    {{ activity }}
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+        <div class="self-care-message">
+            💚 Take care of yourself!
+        </div>
+
+        <div class="navigation">
+
+            <a href="{% url 'dashboard' %}">📊 Dashboard</a>
+
+            <a href="{% url 'mood_history' %}">📈 Mood History</a>
+
+            <a href="{% url 'wellness_analysis' %}">🧠 AI Wellness Analysis</a>
+
+            <a href="{% url 'home' %}">😊 Mood Tracker</a>
+
+            <a href="{% url 'profile' %}">👤 Profile</a>
+
+            <a href="{% url 'logout' %}">🚪 Logout</a>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
